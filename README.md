@@ -1,4 +1,6 @@
-#This folder contains supplementary material for our paper submission.
+# Query Specialization Algorithm Implemented in Prolog SWI
+
+This folder contains supplementary material for our paper submission.
 
 Specifically, it includes two Prolog files:
 
