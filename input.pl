@@ -35,9 +35,9 @@ pks([
 
 % foreign keys 
 fks([	
-%	[learns(Pname,_),	pupil(Pname,f_pupil_1(Pname),f_pupil_2(Pname))		],	% FK: learns[Pname] REFERENCES pupil[PName] (in pupil(Name,School,Code))
-%	[pupil(_,Sname,_),	school(Sname,f_school_1(Sname),f_school_2(Sname))	]  % FK: pupil[Sname] REFERECENS school[SNAME]
-%	[pupil(_,_,Code),	class(Code,f_class_1(Code),f_class_2(Code))			]	% FK: pupil[Code] REFERENCES class[Code] (in class(Code,Level,Schema))
+%% %	[learns(Pname,_),	pupil(Pname,f_pupil_1(Pname),f_pupil_2(Pname))		],	% FK: learns[Pname] REFERENCES pupil[PName] (in pupil(Name,School,Code))
+%% %	[pupil(_,Sname,_),	school(Sname,f_school_1(Sname),f_school_2(Sname))	]  % FK: pupil[Sname] REFERECENS school[SNAME]
+%% %	[pupil(_,_,Code),	class(Code,f_class_1(Code),f_class_2(Code))			]	% FK: pupil[Code] REFERENCES class[Code] (in class(Code,Level,Schema))
 	]). 
 	
 % fks_enforced(learns(Pname,_),	pupil(Pname,_,_)).
@@ -56,11 +56,11 @@ fks([
 % NEW ENCODING OF FDCS
 	
 	fdcs([ 
-%	[learns(_,Lang1), 	Lang1,  [ 'English', 'French' ] ],
-%	[pupil(_,_,Code2), 	Code2,  [ 'a', 'b' ] ],			% pupil[Code] in {a, b} 
-%	[pupil(_,Sname3,_), Sname3, [ 'Dante','Goethe' ] ],			
-	[school(_,Type4,_), Type4,  [ 'primary' ,'middle' ] ] 	% school[Type] in {primary, middle}
-%	[class(_,_,Scheme), Scheme,  [ 'halfDay' ,'fullDay' ] ] 	
+%% %	[learns(_,Lang1), 	Lang1,  [ 'English', 'French' ] ],
+%% %	[pupil(_,_,Code2), 	Code2,  [ 'a', 'b' ] ],			% pupil[Code] in {a, b} 
+%% %	[pupil(_,Sname3,_), Sname3, [ 'Dante','Goethe' ] ],			
+%% % [school(_,Type4,_), Type4,  [ 'primary' ,'middle' ] ] 	% school[Type] in {primary, middle}
+%% %	[class(_,_,Scheme), Scheme,  [ 'halfDay' ,'fullDay' ] ] 	
 	]).
 	   
 
@@ -73,19 +73,20 @@ fks([
 
 %tc1: school_a(Sname,'primary',District)	:- school_i(Sname,'primary',District). 
 % tc(school(Sname,'primary',District), []).
-tc(school(_,'primary','BZ'), []).
+tc(school(_,'primary',_), []).
 
 %tc(school(Sname,'middle',District), []).
-tc(school(_,'middle','BZ'), []).
+%% tc(school(_,'middle','Bolzano'), []).
  
 % tc(pupil(_,Sname,_), [school(Sname,_,'Bolzano')]).
 
 %tc2: pupil_a(Pname,Sname,Code)	:- pupil_i(Pname,Sname,Code).
-%tc( pupil(Pname,Sname,Code) , [] ). 
+%% tc( pupil(_,_,_) , [] ). 
 % tc( pupil(Pname,Sname,'a') , [] ).  
 % tc( pupil(_,_,'a') , [] ).
-tc( pupil(_,_,C) , [class(C,_,'halfDay')] ). 
-tc( pupil(_,_,C) , [class(C,_,'fullDay')] ). 
+%% tc( pupil(_,_,C) , [class(C,_,'halfDay')] ). 
+%% tc( pupil(_,_,C) , [class(C,_,'fullDay')] ). 
+tc( pupil(_,Sname,_) , [school(Sname,_,'Bolzano')] ). 
 
 %tc( pupil(Pname,Sname,'b') , [] ). 
 % tc( pupil(_,_,'b') , [] ).    
@@ -112,8 +113,8 @@ tc(learns(Pname,'English'), [pupil(Pname,Sname,_), school(Sname,'middle', _)]).
 % Queries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%query1([Pname1,Sname1,Code1]):- 
-%	instantiateQ([pupil(Pname1,Sname1,Code1)]). % WORKS! 
+% query1([Pname1,Sname1,Code1]):- 
+% 	instantiateQ([pupil(Pname1,Sname1,Code1)]). % WORKS! 
 %
 %query2([Pname,Sname,Code,Lang]):- 
 %	instantiateQ([pupil(Pname,Sname,Code), school(Sname,'primary', 'Bolzano'), learns(Pname,Lang)]). % WORKS!

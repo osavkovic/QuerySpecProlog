@@ -1,5 +1,5 @@
  :- use_module(input). 
- :- use_module(library(gui_tracer)).   
+ %% :- use_module(library(gui_tracer)).   
      
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -765,9 +765,10 @@ instantiateAtomsBss(As, As, []).				% the stopping point for the above iteration
 		 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
-instantiateAtoms2(Cs, As, Bs):-
-		%writeln('ENTERING instantiateAtoms2(Cs, As, Bs)'),
-		instantiateAtoms(Cs, As, Bs).
+instantiateAtoms2(_, _, _).
+%% instantiateAtoms2(Cs, As, Bs).
+%% 		%writeln('ENTERING instantiateAtoms2(Cs, As, Bs)'),
+%% 		instantiateAtoms(Cs, As, Bs).
  
 %%
 
