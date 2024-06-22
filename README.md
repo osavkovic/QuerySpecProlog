@@ -120,7 +120,7 @@ We provide two example files:
 
 ### Running the Program
 
-To run the code, execute the following command:
+To run the code, it is sufficient to execute the following:
 
 ```console
 foo@bar:~$ ./dlvMac generalization/query2.pl
@@ -128,6 +128,7 @@ DLV [build BEN/Dec 21 2011   gcc 4.2.1 (Apple Inc. build 5666) (dot 3)]
 
 {index(0), index(1),...., fixpoint(1), safe}
 ```
+where `./dlvMac` is the dlv engine. 
 
 ### Interpreting the Output
 
