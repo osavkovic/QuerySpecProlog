@@ -1,4 +1,19 @@
+# Technical Instructions
+
+## Overview
+
+This repository contains:
+
+- Specialization algorithm implemented in Prolog
+- Generalization algorithm implemented in ASP
+
+Below are the instructions for running each of the implementations.
+
+
+
 # How to Run the Specialization Algorithm
+
+Requirements: SWI-Prolog [https://www.swi-prolog.org/](https://www.swi-prolog.org/)
 
 The program consists of two files:
 
@@ -82,3 +97,58 @@ pks([]).
 fks([]).
 fdcs([]).
 ```
+
+
+## Running the Generalization Algorithm
+
+### Requirements
+
+You need an answer-set programming solver, such as DLV. Download it from [DLV System](https://www.dlvsystem.it/).
+
+To run the code on Clingo (another popular ASP solver), change the DLV-specific arithmetic functions (e.g., in DLV `#succ(X,Y)` becomes `Y=X+1` in Clingo).
+
+### Program Structure
+
+The program consists of a single file that contains the encoding of the query and TC statements.
+
+We provide two example files:
+
+- `generalization/query1.pl`
+- `generalization/query2.pl`
+
+`query1.pl` encodes the running example from the paper. `query2.pl` slightly alters that example to illustrate a fixpoint that is not a safe query.
+
+### Running the Program
+
+To run the code, execute the following command:
+
+```console
+foo@bar:~$ ./dlvMac generalization/query2.pl
+DLV [build BEN/Dec 21 2011   gcc 4.2.1 (Apple Inc. build 5666) (dot 3)]
+
+{index(0), index(1),...., fixpoint(1), safe}
+```
+
+### Interpreting the Output
+
+The output will be a single answer set. Look for the atoms `fixpoint/1` and `safe/0`. 
+
+- The atom `fixpoint/1` contains a number (e.g., `fixpoint(1)`) that indicates how many iterations of the `G_C` operator are required to reach the fixpoint. This means `G_C^i(Q)` is the fixpoint.
+- The atoms that determine the query `G_C^i(Q)` will have `i` as the last component.
+
+For example, in our running example:
+
+```console
+foo@bar:~$ ./dlvMac generalization/query2.pl
+DLV [build BEN/Dec 21 2011   gcc 4.2.1 (Apple Inc. build 5666) (dot 3)]
+
+{index(0), index(1),...., pupil(frozen_N,frozen_C,frozen_S,1), school(frozen_S,primary,bolzano,1), ...   fixpoint(1), safe}
+```
+
+This output means that the query `G_C^i(Q)` is:
+
+```
+Q(N) :- pupil(N,C,S), school(S,primary,bolzano)
+```
+
+Finally, if each output variable is present in the body of MCG, the answer set contains the predicate `safe`. Otherwise, it contains the predicate `notsafe`.
